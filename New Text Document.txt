@@ -1,0 +1,206 @@
+1)
+public class ArrayDifference {
+
+    public static int maxDifference(int[] arr1, int[] arr2) {
+        if (arr1 == null || arr1.length == 0 || arr2 == null || arr2.length == 0) {
+            throw new IllegalArgumentException("Both arrays must be non-empty.");
+        }
+
+        int max1 = findMax(arr1);
+        int max2 = findMax(arr2);
+
+        return Math.abs(max1 - max2);
+    }
+
+    private static int findMax(int[] arr) {
+        int max = arr[0];
+        for (int num : arr) {
+            if (num > max) {
+                max = num;
+            }
+        }
+        return max;
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = {3, 5, 9};
+        int[] arr2 = {4, 7, 2};
+
+        System.out.println("Max difference: " + maxDifference(arr1, arr2));  // Output: 2
+    }
+}
+
+2)
+import java.util.HashMap;
+import java.util.Map;
+
+public class MostFrequentCharacter {
+
+    public static char findMostFrequentCharacter(String input) {
+        if (input == null || input.isEmpty()) {
+            throw new IllegalArgumentException("Input string must not be null or empty.");
+        }
+
+        // HashMap to store the count of each character
+        Map<Character, Integer> charCountMap = new HashMap<>();
+
+        // Count each character's occurrences
+        for (char c : input.toCharArray()) {
+            charCountMap.put(c, charCountMap.getOrDefault(c, 0) + 1);
+        }
+
+        // Find the character with the highest occurrence
+        char mostFrequentChar = input.charAt(0);
+        int maxCount = 0;
+
+        for (Map.Entry<Character, Integer> entry : charCountMap.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                mostFrequentChar = entry.getKey();
+                maxCount = entry.getValue();
+            }
+        }
+
+        return mostFrequentChar;
+    }
+
+    public static void main(String[] args) {
+        String input = "adcda";
+        char result = findMostFrequentCharacter(input);
+        System.out.println("Most frequent character: " + result); // Output: a
+    }
+}
+
+
+3)
+
+public class Book {
+    // Attributes
+    private int id;
+    private String name;
+    private int quantity;
+    private String authorName;
+
+    // Constructors
+    public Book(String name, int id, String authorName) {
+        this.name = name;
+        this.id = id;
+        this.authorName = authorName;
+        this.quantity = 0;  // default quantity is set to 0
+    }
+
+    public Book(String name, int id, String authorName, int quantity) {
+        this.name = name;
+        this.id = id;
+        this.authorName = authorName;
+        this.quantity = quantity;
+    }
+
+    // Methods
+    public void incrementQuantity(int k) {
+        this.quantity += k;
+    }
+
+    public void incrementQuantity() {
+        incrementQuantity(1);
+    }
+
+    // Getters
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+}
+
+-------------------------
+Library.class
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Library {
+    // Data field to store books
+    private List<Book> books;
+
+    // Constructor
+    public Library() {
+        books = new ArrayList<>();
+    }
+
+    // Method to search for a book by ID
+    public Book searchBookByID(int id) {
+        for (Book book : books) {
+            if (book.getId() == id) {
+                return book;
+            }
+        }
+        return null; // Return null if no book is found with the given ID
+    }
+
+    // Method to get the total count of all books in the library
+    public int getTotalBookCount() {
+        int totalCount = 0;
+        for (Book book : books) {
+            totalCount += book.getQuantity();
+        }
+        return totalCount;
+    }
+
+    // Method to add a book with ID, name, and author (default quantity 0)
+    public void addBook(int id, String name, String authorName) {
+        Book newBook = new Book(name, id, authorName);
+        books.add(newBook);
+    }
+
+    // Method to add a book with ID, name, author, and specified quantity
+    public void addBook(int id, String name, String authorName, int quantity) {
+        Book newBook = new Book(name, id, authorName, quantity);
+        books.add(newBook);
+    }
+
+    // Method to get an array of books with quantity more than a given number
+    public Book[] getBooksMoreThan(int quantity) {
+        List<Book> result = new ArrayList<>();
+        for (Book book : books) {
+            if (book.getQuantity() > quantity) {
+                result.add(book);
+            }
+        }
+        return result.toArray(new Book[0]); // Return an array of books with quantity > given amount
+    }
+}
+
+
+
+
+
+
+
+
